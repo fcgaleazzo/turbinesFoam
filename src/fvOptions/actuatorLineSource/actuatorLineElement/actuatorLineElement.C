@@ -105,6 +105,7 @@ void Foam::fv::actuatorLineElement::read()
     {
         Info<< "actuatorLineElement properties:" << endl;
         Info<< "Position: " << position_ << endl;
+        Info<< "rootDistance: " << rootDistance_ << endl;
         Info<< "chordLength: " << chordLength_ << endl;
         Info<< "chordDirection: " << chordDirection_ << endl;
         Info<< "spanLength: " << spanLength_ << endl;
