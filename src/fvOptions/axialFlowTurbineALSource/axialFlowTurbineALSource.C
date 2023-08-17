@@ -525,6 +525,8 @@ void Foam::fv::axialFlowTurbineALSource::calcEndEffects()
                 scalar relVelRotorPlane = rotorPlaneDir & relVel;
                 // Note: Does not take yaw into account
                 phi = atan2(relVelRotorPlane, relVelOpElementVel);
+                // To solve the problem with the exponential function of end effects if phi < 0
+                if (phi <= 0) {phi = VSMALL;}
             }
             if (debug)
             {
