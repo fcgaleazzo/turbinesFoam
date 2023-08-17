@@ -995,6 +995,10 @@ const Foam::vector& Foam::fv::actuatorLineElement::force()
     return forceVector_;
 }
 
+const Foam::vector& Foam::fv::actuatorLineElement::inflowVelocity()
+{
+    return inflowVelocity_;
+}
 
 Foam::vector Foam::fv::actuatorLineElement::moment(vector point)
 {

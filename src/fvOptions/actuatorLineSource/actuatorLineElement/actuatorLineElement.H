@@ -302,6 +302,9 @@ public:
             //- Return force vector from element
             const vector& force();
 
+            //- Return inflow velocity vector from element
+            const vector& inflowVelocity();
+
             //- Return relative velocity
             const vector& relativeVelocity();
 
