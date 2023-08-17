@@ -136,6 +136,8 @@ void Foam::fv::turbineALSource::createOutputFile()
         *outputFile_<< ",ct_" << bladeNames_[i];
     }
 
+    *outputFile_<< ",rpm,power,torque,thrust";
+
     *outputFile_<< endl;
 }
 
@@ -289,6 +291,10 @@ void Foam::fv::turbineALSource::writePerf()
             / (0.5*frontalArea_*rotorRadius_* magSqr(freeStreamVelocity_));
         *outputFile_<< "," << bladeCt;
     }
+        scalar rpm = radToDeg(omega_)/360*60;
+        scalar power = torque_*omega_;
+        scalar thrust = force_ & freeStreamDirection_;
+        *outputFile_<< "," << rpm << "," << power << "," << torque_ << "," << thrust;
 
     *outputFile_<< endl;
 }
