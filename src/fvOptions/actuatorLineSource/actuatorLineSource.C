@@ -643,6 +643,10 @@ const Foam::volVectorField& Foam::fv::actuatorLineSource::forceField()
     return forceField_;
 }
 
+const Foam::vector& Foam::fv::actuatorLineSource::meanInflowVelocity()
+{
+    return meanInflowVelocity_;
+}
 
 PtrList<Foam::fv::actuatorLineElement>& Foam::fv::actuatorLineSource::elements()
 {
@@ -685,12 +689,15 @@ void Foam::fv::actuatorLineSource::addSup
 
     // Zero the total force vector
     force_ = vector::zero;
+    meanInflowVelocity_ = vector::zero;
 
     forAll(elements_, i)
     {
         elements_[i].addSup(eqn, forceField_);
         force_ += elements_[i].force();
+	    meanInflowVelocity_ += elements_[i].inflowVelocity(); 
     }
+    meanInflowVelocity_ = meanInflowVelocity_/nElements_;
 
     Info<< "Force (per unit density) on " << name_ << ": "
         << endl << force_ << endl << endl;

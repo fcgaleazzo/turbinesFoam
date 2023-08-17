@@ -174,6 +174,7 @@ void Foam::fv::turbineALSource::printPerf()
     Info<< "Azimuthal angle (degrees) of " << name_ << ": " << angleDeg_
         << endl;
     Info<< "Tip speed ratio of " << name_ << ": " << tipSpeedRatio_ << endl;
+	Info<< "Free stream velocity of "<< name_ << ": "  << mag(freeStreamVelocity_) << endl;
     Info<< "Power coefficient from " << name_ << ": " << powerCoefficient_
         << endl;
     Info<< "Rotor drag coefficient from " << name_ << ": " << dragCoefficient_

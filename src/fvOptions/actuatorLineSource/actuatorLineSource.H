@@ -90,6 +90,9 @@ protected:
         //- Force field from all elements
         volVectorField forceField_;
 
+	    //- Mean inflow velocity from all elements
+        vector meanInflowVelocity_;
+
         //- List of actuator line elements
         PtrList<actuatorLineElement> elements_;
 
@@ -181,6 +184,9 @@ public:
 
             //- Return const reference to the force field
             const volVectorField& forceField();
+
+            //- Return const reference to the mean inflow velocity vector
+            const vector& meanInflowVelocity();
 
             //- Return reference to element pointer list
             PtrList<actuatorLineElement>& elements();

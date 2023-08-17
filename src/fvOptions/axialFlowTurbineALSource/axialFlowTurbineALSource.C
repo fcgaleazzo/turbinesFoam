@@ -609,7 +609,8 @@ Foam::fv::axialFlowTurbineALSource::axialFlowTurbineALSource
     verticalDirection_
     (
         coeffs_.lookupOrDefault("verticalDirection", vector(0, 0, 1))
-    )
+    ),
+	inductionFactor_(coeffs_.lookupOrDefault("inductionFactor", 0.33))
 {
     read(dict);
     createCoordinateSystem();
@@ -728,6 +729,7 @@ void Foam::fv::axialFlowTurbineALSource::addSup
         calcEndEffects();
     }
 
+    meanInflowVelocity_ = vector::zero;
     // Add source for blade actuator lines
     forAll(blades_, i)
     {
@@ -736,7 +738,14 @@ void Foam::fv::axialFlowTurbineALSource::addSup
         force_ += blades_[i].force();
         bladeMoments_[i] = blades_[i].moment(origin_);
         moment += bladeMoments_[i];
+	    meanInflowVelocity_ += blades_[i].meanInflowVelocity();
     }
+    meanInflowVelocity_ = meanInflowVelocity_ / nBlades_;
+    if (debug)
+	{
+        Info<< "meanInflowVelocity " << mag(meanInflowVelocity_) << endl;
+    }
+	freeStreamVelocity_ = meanInflowVelocity_/(1 - inductionFactor_);
 
     if (hasHub_)
     {

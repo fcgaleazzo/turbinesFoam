@@ -105,6 +105,11 @@ protected:
         //- End effects model name
         word endEffectsModel_;
 
+	    // Mean inflow velocity vector
+	    vector meanInflowVelocity_;
+		
+		// Induction factor
+		scalar inductionFactor_;
 
     // Protected Member Functions
 
