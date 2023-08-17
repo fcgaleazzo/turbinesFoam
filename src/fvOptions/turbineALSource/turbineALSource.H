@@ -146,8 +146,8 @@ protected:
         //- Angle of first peak in TSR oscillation (rad)
         scalar tsrPhase_;
 
-        //- Mean tip speed ratio
-        scalar meanTSR_;
+        //- Variable tip speed ratio (Function1)
+        autoPtr<Function1<scalar>> meanTSR_;
 
         //- Individual blade moments about turbine origin
         List<vector> bladeMoments_;

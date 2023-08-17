@@ -144,8 +144,9 @@ void Foam::fv::turbineALSource::updateTSROmega()
 {
     // Update tip speed ratio and omega
     scalar theta = degToRad(angleDeg_);
-    tipSpeedRatio_ = meanTSR_ + tsrAmplitude_*cos(nBlades_*(theta - tsrPhase_));
-    omega_ = tipSpeedRatio_*mag(freeStreamVelocity_)/rotorRadius_;
+    scalar fsv = mag(freeStreamVelocity_);
+    tipSpeedRatio_ = meanTSR_->value(fsv) + tsrAmplitude_*cos(nBlades_*(theta - tsrPhase_));
+    omega_ = tipSpeedRatio_*fsv/rotorRadius_;
 }
 
 
@@ -196,6 +197,7 @@ Foam::fv::turbineALSource::turbineALSource
     angleDeg_(0.0),
     nBlades_(0),
     freeStreamVelocity_(vector::zero),
+    meanTSR_(Function1<scalar>::New("tipSpeedRatio", coeffs_)),
     forceField_
     (
         IOobject
@@ -311,7 +313,6 @@ bool Foam::fv::turbineALSource::read(const dictionary& dict)
         coeffs_.lookup("axis") >> axis_;
         axis_ /= mag(axis_);
         coeffs_.lookup("freeStreamVelocity") >> freeStreamVelocity_;
-        coeffs_.lookup("tipSpeedRatio") >> meanTSR_;
         coeffs_.lookup("rotorRadius") >> rotorRadius_;
         tsrAmplitude_ = coeffs_.lookupOrDefault("tsrAmplitude", 0.0);
         tsrPhase_ = coeffs_.lookupOrDefault("tsrPhase", 0.0);
