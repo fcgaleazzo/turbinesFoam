@@ -266,7 +266,7 @@ Foam::scalar Foam::fv::actuatorLineElement::calcProjectionEpsilon()
         {
             epsilonMethod = "mesh-based";
         }
-        Info<< "    epsilon (" << epsilonMethod << "): " << epsilon << endl;
+        Info<< "    epsilon (" << epsilonMethod << "): " << epsilon << " meshFactor: " << meshFactor << endl;
     }
 
     return epsilon;
