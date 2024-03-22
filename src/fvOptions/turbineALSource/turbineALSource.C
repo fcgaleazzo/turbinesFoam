@@ -108,18 +108,7 @@ void Foam::fv::turbineALSource::createBlades()
 
 void Foam::fv::turbineALSource::createOutputFile()
 {
-    fileName dir;
-
-    if (Pstream::parRun())
-    {
-        dir = time_.path()/"../postProcessing/turbines"
-            / time_.timeName();
-    }
-    else
-    {
-        dir = time_.path()/"postProcessing/turbines"
-            / time_.timeName();
-    }
+    fileName dir = time_.globalPath()/"postProcessing/turbines"/time_.timeName();
 
     if (not isDir(dir))
     {

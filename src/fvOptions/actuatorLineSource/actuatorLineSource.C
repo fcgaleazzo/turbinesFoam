@@ -102,18 +102,7 @@ bool Foam::fv::actuatorLineSource::read(const dictionary& dict)
 
 void Foam::fv::actuatorLineSource::createOutputFile()
 {
-    fileName dir;
-
-    if (Pstream::parRun())
-    {
-        dir = mesh_.time().path()/"../postProcessing/actuatorLines"
-            / mesh_.time().timeName();
-    }
-    else
-    {
-        dir = mesh_.time().path()/"postProcessing/actuatorLines"
-            / mesh_.time().timeName();
-    }
+    fileName dir = mesh_.time().globalPath()/"postProcessing/actuatorLines"/mesh_.time().timeName();
 
     if (not isDir(dir))
     {

@@ -460,18 +460,7 @@ void Foam::fv::actuatorLineElement::calculateInflowVelocity
 
 void Foam::fv::actuatorLineElement::createOutputFile()
 {
-    fileName dir;
-
-    if (Pstream::parRun())
-    {
-        dir = mesh_.time().path()/"../postProcessing/actuatorLineElements"
-            / mesh_.time().timeName();
-    }
-    else
-    {
-        dir = mesh_.time().path()/"postProcessing/actuatorLineElements"
-            / mesh_.time().timeName();
-    }
+    fileName dir = mesh_.time().globalPath()/"postProcessing/actuatorLineElements"/mesh_.time().timeName();
 
     if (not isDir(dir))
     {
